@@ -1,15 +1,18 @@
+
+
 class Graph:
     def __init__(self, matrix):
         # Cria uma lista de adjacência para armazenar o grafo
         self.vertex_set = self.get_adjency_list(matrix)
-        self.vertex_set_indexes = list(range(0, 10))
+        self.vertex_set_indexes = list(range(0, len(matrix[0])))
         self.edge_set = self.get_edge_set()
 
     def get_adjency_list(self, matrix):
         adjacency_list = []
 
+        j = 0
         for line in matrix:
-            vertex_index = matrix.index(line)
+            vertex_index = j
             current_vertex = Vertex(vertex_index) # Salva o vértice atual, rotulando-o pelo índice
 
             index = 0
@@ -21,6 +24,7 @@ class Graph:
                 index += 1
 
             adjacency_list.append(current_vertex)
+            j += 1
 
         self.vertex_set = adjacency_list
 
@@ -91,8 +95,6 @@ class Edge:
                 else: self.edge_type = "ai" 
             elif self.v1.level() == (self.v2.level()-1) or (self.v1.level()-1) == self.v2.level():
                 self.edge_type = "at"
-
- 
          
 class Vertex:
     def __init__(self, index):
@@ -109,10 +111,7 @@ class Vertex:
         current = self
 
         while current.parent != None:
-            # print(f'{current.index}. {current.parent}')
             current = current.parent
             level += 1
 
         return level
-
-
