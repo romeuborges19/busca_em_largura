@@ -1,3 +1,4 @@
+from bfs import *
 from utils import *
 import networkx as nx
 from graph import *
@@ -22,19 +23,21 @@ def main():
 
     resulted_graph = Graph(adjency_matrix)
     print(resulted_graph.print_adjency_list())
-    print(resulted_graph.edge_set)
-    print(resulted_graph.vertex_set)
+    bfs = BFS(resulted_graph)
+    bfs.breadth_first_search(0)
+    bfs.get_edge_types()
 
+    for edge in bfs.bsf_edge_set:
+        print(f'Aresta ({edge.v1.index}, {edge.v2.index}), tipo {edge.edge_type}')
+
+    # Plotando o grafo
     G = nx.Graph()
 
-    G.add_nodes_from(resulted_graph.vertex_set)
-    G.add_edges_from(resulted_graph.edge_set)
+    G.add_nodes_from(resulted_graph.vertex_set_indexes)
+    G.add_edges_from(resulted_graph.edge_set_literal)
 
     nx.draw(G, with_labels=True)
     plt.savefig("graph.png") 
-    
-
-
 
 if __name__=='__main__':
     main()
